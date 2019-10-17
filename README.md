@@ -36,8 +36,8 @@ High-level features:
 - Get list of tickets of certain event
 - Purchase many tickets when available which means:
 
-  - quantity of ordered tickets must be in the stock
-  - you can order tickets only before an event ends
+  - Quantity of ordered tickets must be in the stock
+  - You can order tickets only before an event ends
 
 - Notify customer via email when order changes it's state
 - Create, check out, pay for an order
