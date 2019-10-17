@@ -1,0 +1,49 @@
+require: rubocop-performance
+
+AllCops:
+  Exclude:
+    - "vendor/**/*"
+    - "spec/**/*"
+    - "bin/**/*"
+    - "node_modules/**/*"
+    - "db/schema.rb"
+    - "tmp/**/*"
+    - "app/**/*.jbuilder"
+
+Style/MutableConstant:
+  Enabled: true
+  Exclude:
+    - "db/migrate/**/*"
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  Exclude:
+    - "config.ru"
+    - "Gemfile"
+    - "Rakefile"
+    - "app/views/**/*"
+    - "config/**/*"
+    - "db/**/*"
+    - "lib/tasks/**/*"
+    - "spec/**/*"
+
+Performance/RegexpMatch:
+  Enabled: false
+
+Style/ReturnNil:
+  Enabled: true
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 125
+  Exclude:
+    - "Gemfile"
+
+Metrics/MethodLength:
+  Exclude:
+    - "db/migrate/*"

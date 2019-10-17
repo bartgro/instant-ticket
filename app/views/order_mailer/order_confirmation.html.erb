@@ -1,0 +1,33 @@
+<h1>Thanks for your order</h1>
+
+<p>Dear <%= @order.address.first_name %> <%= @order.address.last_name %>,</p>
+
+<p>We want to let you know your order has beed confirmed.</p>
+
+<table>
+  <thead>
+    <th>Ticket</th>
+    <th>Quantity</th>
+    <th>Unit price</th>
+  </thead>
+  <tbody>
+    <% @order.line_items.each do |item| %>
+      <tr>
+        <td><%= item.event_name %></td>
+        <td><%= item.quantity %></td>
+        <td><%= item.unit_price %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td>Shipping type</td>
+      <td></td>
+      <td><%= @order.shipping_cost %></td>
+    </tr>
+    <tr></tr>
+    <tr>
+      <th>Summary</th>
+      <td></td>
+      <td collspan="2"><%= @order.full_cost %></td>
+    </tr>
+  </tbody>
+</table>

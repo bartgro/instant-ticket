@@ -1,0 +1,13 @@
+en:
+  hello: "Hello world"
+  order_mailer:
+    order_confirmation:
+      subject: "Instant-Ticket - Order confirmation"
+    order_paid:
+      subject: "Instant-Ticket - Thanks for your purchase!"
+    order_in_progress:
+      subject: "Instant-Ticket - We are preparing your order"
+    order_shipped:
+      subject: "Instant-Ticket - Your order has been shipped"
+    order_cancelled:
+      subject: "Instant-Ticket - Your order has been cancelled"
