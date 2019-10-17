@@ -1,6 +1,6 @@
 # Instant-Ticket
 
-## Installation
+## Getting started
 
 Clone repository
 
@@ -17,7 +17,7 @@ bundle install
 Configure database
 
 ```Shell
-mv config/database.yaml.example config/database.yaml
+mv config/database.yml.example config/database.yml
 ```
 
 Prepare database and fill with fake content
@@ -43,3 +43,7 @@ High-level features:
 - Create, check out, pay for an order
 - Reallocate stock on confirm / cancel order
 - Validates and formats attributes
+
+## Documentation
+
+See [Wiki](https://github.com/bartgro/instant-ticket/wiki) if you need some informations about resources.
