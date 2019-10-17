@@ -17,7 +17,7 @@ bundle install
 Configure database
 
 ```Shell
-mv config/database.yaml.example config/database.yaml
+mv config/database.yml.example config/database.yml
 ```
 
 Prepare database and fill with fake content
@@ -36,8 +36,8 @@ High-level features:
 - Get list of tickets of certain event
 - Purchase many tickets when available which means:
 
-  - quantity of ordered tickets must be in the stock
-  - you can order tickets only before an event ends
+  - Quantity of ordered tickets must be in the stock
+  - You can order tickets only before an event ends
 
 - Notify customer via email when order changes it's state
 - Create, check out, pay for an order
