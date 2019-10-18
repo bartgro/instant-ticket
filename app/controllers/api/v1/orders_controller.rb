@@ -15,7 +15,7 @@ class Api::V1::OrdersController < ApplicationController
     if order.save
       render json: order
     else
-      render_error code: 400, message: 'Params not valid.'
+      render_404
     end
   end
 
@@ -24,27 +24,28 @@ class Api::V1::OrdersController < ApplicationController
     order = Order.find(params[:id])
 
     if order.transition_to :confirmed
-      render json: order, serializer: Api::V1::OrderCheckOutSerializer
+      render json: { status: 'success', code: 200, message: 'Your order has been confirmed' }, status: 200
     else
-      render_error code: 400, message: 'Something went wrong, please check your order.'
+      render_400 message: 'Something went wrong, please check your order and try again'
     end
   end
 
   # POST /api/v1/order/pay
   def pay
     order = Order.find(params[:order_id])
-    token = params[:token] if params[:token].instance_of?(String)
+    token = params[:token] if params[:token].present?
 
-    if token.nil?
+    if token.nil? || order.in_state?(:paid)
       render_404
     else
       Payment::Gateway.charge(amount: order.full_cost, token: token)
       order.transition_to :paid
+      render json: { status: 'success', code: 200, message: 'You wasted your money successfully' }, status: 200
     end
   rescue CardError => e
-    render_error code: 400, message: e, status: 400
+    render_400 message: e
   rescue PaymentError => e
-    render_error code: 400, message: e, status: 400
+    render_400 message: e
   end
 
   private

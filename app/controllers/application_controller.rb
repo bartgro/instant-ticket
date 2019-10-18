@@ -12,10 +12,12 @@ class ApplicationController < ActionController::API
   private
 
   def render_404
-    render json: { status: { error: { code: 404, message: 'Not found' } } }, status: 404
+    render json: { status: 'error', code: 404, message: 'Not found' }, status: 404
   end
 
-  def render_error(code:, message:, status: 400)
-    render json: { status: { error: { code: code, message: message } } }, status: status
+  def render_400(message:)
+    message ||= 'Bad request'
+
+    render json: { status: 'error', code: 400, message: message }, status: 400
   end
 end
