@@ -69,65 +69,45 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
       end
     end
 
-    # context 'when tickets are out of stock' do
-    #   it 'responses with error' do
-    #     post :check_out, params: { order: { id: 'invalid' } }
-    #     expect(response).to have_http_status(404)
-    #   end
-    # end
-
-    # context 'when order does not exists' do
-    #   it 'responses with error' do
-
-    #   end
-    # end
+    context 'when customer try to check out order again' do
+      it 'responses with error' do
+        post :check_out, params: { id: order.id }
+        post :check_out, params: { id: order.id }
+        expect(response).to have_http_status(400)
+      end
+    end
   end
 
   describe 'POST #pay' do
-    let(:order) { create(:order, :confirmed)}
+    let(:order) { create(:order, :confirmed) }
 
     context 'when correct params are given' do
       it 'responses with success' do
-        post :pay, params: { order: { id: order.id, token: 'awesometoken' }}
-        expect(response).to have_http_status(404)
+        post :pay, params: { order_id: order.id, token: 'awesometoken' }
+        expect(response).to have_http_status(200)
       end
     end
 
     context 'when order cannot be found' do
       it 'responses with error' do
-        post :pay, params: { order: { id: 'hello', token: 'awesometoken' }}
+        post :pay, params: { order_id: 'hello', token: 'awesometoken' }
         expect(response).to have_http_status(404)
       end
     end
 
     context 'where token is not a string' do
       it 'responses with error' do
-        post :pay, params: { order: { id: 'hello', token: 123 }}
+        post :pay, params: { order_id: 'hello', token: 123 }
+        expect(response).to have_http_status(404)
+      end
+    end
+
+    context 'where token is not given' do
+      it 'responses with error' do
+        # byebug
+        post :pay, params: { order_id: order.id, token: nil }
         expect(response).to have_http_status(404)
       end
     end
   end
 end
-
-    # let(:shipping_type) { create(:shipping_type) }
-    # let(:ticket) { create(:ticket) }
-    # let(:address) { attributes_for(:address) }
-
-    # it 'should create an order' do
-    #   order_params = {
-    #     comment: 'comment',
-    #     shipping_type_id: shipping_type.id,
-    #     address_attributes: address,
-    #     line_items_attributes: [
-    #       { ticket_id: ticket.id },
-    #       { quantity: 1 }
-    #     ]
-    #   }
-
-    #   stock = ticket.stock.available
-    #   post :create, params: { order: order_params }
-
-    #   diff = stock - ticket.stock.available
-
-    #   expect(diff).to eq(1)
-    # end

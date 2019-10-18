@@ -10,9 +10,20 @@ RSpec.describe Api::V1::TicketsController, type: :controller do
   end
 
   describe "GET #show" do
-    it "returns http success" do
-      get :show, params: { id: 1 }
-      expect(response).to have_http_status(:success)
+    let(:ticket) { create(:ticket) }
+
+    context 'when ticket can be found' do
+      it "returns http success" do
+        get :show, params: { id: ticket.id }
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    context 'when ticket cannot be found' do
+      it "responses with error" do
+        get :show, params: { id: 'whatever' }
+        expect(response).to have_http_status(:not_found)
+      end
     end
   end
 end
